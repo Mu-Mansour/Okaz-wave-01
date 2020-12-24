@@ -3,11 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/home2">
+    app:startDestination="@id/logInCst">
 
     <fragment
         android:id="@+id/home2"
         android:name="com.example.okaz.Ui.HomeFragment.Home"
         android:label="home_fragment"
         tools:layout="@layout/home_fragment" />
+    <fragment
+        android:id="@+id/splash"
+        android:name="com.example.okaz.Ui.Splash.Splash"
+        android:label="splash_fragment"
+        tools:layout="@layout/splash_fragment" >
+        <action
+            android:id="@+id/action_splash_to_home2"
+            app:destination="@id/home2" />
+    </fragment>
+    <fragment
+        android:id="@+id/logInCst"
+        android:name="com.example.okaz.Ui.logInCst.LogInCst"
+        android:label="log_in_cst_fragment"
+        tools:layout="@layout/log_in_cst_fragment" >
+        <action
+            android:id="@+id/action_logInCst_to_home2"
+            app:destination="@id/home2" />
+    </fragment>
 </navigation>

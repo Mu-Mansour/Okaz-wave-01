@@ -18,11 +18,11 @@ import kotlinx.android.synthetic.main.product_rv_layout.view.*
 
 class   ProductAdapter: RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 //
-    private val phonelink="https://sc01.alicdn.com/kf/H71dbfcf1dfca419d9931c8a6e4be84bce.jpg"
-    private val carLink="https://sc01.alicdn.com/kf/H4b848252c95049f5b5d23af01315a5293.jpg"
-    private val shampoLink="https://s3-ap-south-1.amazonaws.com/abaft-cdn/wp-content/uploads/2019/05/25085719/head-and-sholder-abaft-trading-600x600.jpg"
-    private val laptopLink= "https://sc01.alicdn.com/kf/H7d1b75c5a87847fa8179cfde5c086b3dJ.jpg"
-    private val foodLink="https://www.artigasalimentaria.com/wp-content/uploads/2017/02/MG_2295-540x361.jpg"
+    private val phonelink=R.drawable.phone
+    private val carLink=R.drawable.car
+    private val shampoLink=R.drawable.shampo
+    private val laptopLink= R.drawable.lap
+    private val foodLink=R.drawable.meat
     private var products:ArrayList<Product> = arrayListOf(Product("Samsung Note 20",20,22000.0,phonelink,"id1")
 ,           Product("Chevy Malipo",900,480000.0,carLink,"id2"),
         Product("Clear Shampo",94,87.0,shampoLink,"id3"),
@@ -50,7 +50,7 @@ class   ProductAdapter: RecyclerView.Adapter<ProductAdapter.ProductViewHolder>()
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.theProductImage.load(products[position].image) {
+        holder.theProductImage.load(products[position].image!!) {
             scale(Scale.FIT)
             transformations(RoundedCornersTransformation(30f))
             crossfade(true)

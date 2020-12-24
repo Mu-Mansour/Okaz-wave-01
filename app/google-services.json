@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "155319609720",
+    "project_id": "okaz-8c8c3",
+    "storage_bucket": "okaz-8c8c3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155319609720:android:f48b8552066caa001c008d",
+        "android_client_info": {
+          "package_name": "com.example.okaz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "155319609720-p6rj1osh9d679284fco9828n4jiis0u9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.okaz",
+            "certificate_hash": "e0422503711302808fb846bfa61d8bb3860f4240"
+          }
+        },
+        {
+          "client_id": "155319609720-ooliaddv7tfejnii5fpaet0mmsqbkhv3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACQsvZ5P7kHs_kCG9kBEVE9pXPf6PFbv8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "155319609720-ooliaddv7tfejnii5fpaet0mmsqbkhv3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
