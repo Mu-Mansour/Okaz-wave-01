@@ -1,5 +1,7 @@
 package com.example.okaz.Ui.logInCst
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,6 +24,7 @@ import kotlinx.android.synthetic.main.log_in_cst_fragment.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class LogInCst : Fragment() {
@@ -114,6 +117,22 @@ private val theVM:LogInCstViewModel by viewModels()
                     }
 
             }
+        }
+        adminLogin.setOnClickListener {
+            AlertDialog.Builder(requireContext())
+                    .setMessage("This is For Admin log in\nPlease confirm if u r an Admin..")
+                    .setTitle("Admin Log In")
+                    .setPositiveButton(" Confirm", DialogInterface.OnClickListener { _, _ ->
+                        lifecycleScope.launch(Dispatchers.IO){
+                            withContext(Dispatchers.Main){
+                                findNavController().navigate(LogInCstDirections.actionLogInCstToAdminLogin2())
+                            }
+                        }
+
+
+                    }).setNegativeButton("Cancel", DialogInterface.OnClickListener { _, _ ->
+                        Toast.makeText(requireContext(), "Canceled ..", Toast.LENGTH_SHORT).show()
+                    }).show()
         }
         }
     }

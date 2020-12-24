@@ -27,5 +27,22 @@
         <action
             android:id="@+id/action_logInCst_to_home2"
             app:destination="@id/home2" />
+        <action
+            android:id="@+id/action_logInCst_to_adminLogin2"
+            app:destination="@id/adminLogin2" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminHome"
+        android:name="com.example.okaz.Ui.AdminHome.AdminHome"
+        android:label="admin_home_fragment"
+        tools:layout="@layout/admin_home_fragment" />
+    <fragment
+        android:id="@+id/adminLogin2"
+        android:name="com.example.okaz.Ui.AdminLogin.AdminLogin"
+        android:label="admin_login_fragment"
+        tools:layout="@layout/admin_login_fragment" >
+        <action
+            android:id="@+id/action_adminLogin2_to_adminHome"
+            app:destination="@id/adminHome" />
     </fragment>
 </navigation>
