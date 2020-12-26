@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -16,11 +19,21 @@ import com.example.okaz.Adapters.CategoryAdapter
 import com.example.okaz.Adapters.ProductAdapter
 import com.example.okaz.R
 import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.home_fragment.view.*
-
-class Home : Fragment(R.layout.home_fragment) {
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+@AndroidEntryPoint
+class Home : Fragment() {
 private val categoryAdapter = CategoryAdapter()
 private val productAdapter = ProductAdapter()
+val viewModel:HomeViewModel by viewModels()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        lifecycleScope.launch(Dispatchers.IO) {
+            viewModel.getTheHotProducts()
+        }
+    }
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,6 +59,13 @@ private val productAdapter = ProductAdapter()
         theView.catRV.adapter=categoryAdapter
         theView.ProductRV.adapter=productAdapter
         return theView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.theHotProductsForCsts.observe(viewLifecycleOwner, Observer {
+            productAdapter.submitTheList(it)
+        })
     }
 
 }

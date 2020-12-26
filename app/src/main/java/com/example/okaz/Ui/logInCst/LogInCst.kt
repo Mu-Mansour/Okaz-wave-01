@@ -67,34 +67,31 @@ private val theVM:LogInCstViewModel by viewModels()
             }
             else
             {
-                theVM.theUthKey=msgInput.editText!!.text.toString()
+                theVM.theCodeSent?.let {
+                    theVM.theUthKey = msgInput.editText!!.text.toString()
                     theVM.verifyTheNewCustomer()?.addOnCompleteListener {
-                        if (it.isSuccessful)
-                        {
+                        if (it.isSuccessful) {
                             lifecycleScope.launch(Dispatchers.IO) {
-                                theVM.checkToCreate().addValueEventListener(object :ValueEventListener {
+                                theVM.checkToCreate().addValueEventListener(object : ValueEventListener {
                                     @RequiresApi(Build.VERSION_CODES.M)
                                     override fun onDataChange(snapshot: DataSnapshot) {
-                                        if (snapshot.exists())
-                                        {
+                                        if (snapshot.exists()) {
                                             theVM.checkToCreate().removeEventListener(this)
                                             lifecycleScope.launch {
                                                 Snackbar.make(view.verifyBTN, "Welcome Back ${theVM.theName!!}", Snackbar.LENGTH_SHORT).setBackgroundTint(requireContext().getColor(
-                                                    R.color.purple_200))
-                                                    .show()
+                                                        R.color.purple_200))
+                                                        .show()
                                                 delay(500)
                                                 findNavController().navigate(LogInCstDirections.actionLogInCstToHome2())
                                             }
-                                        }
-                                        else
-                                        {
+                                        } else {
                                             theVM.checkToCreate().removeEventListener(this)
                                             lifecycleScope.launch(Dispatchers.IO) {
                                                 theVM.createTheCustomerDetails().addOnSuccessListener {
-                                                    lifecycleScope.launch{
+                                                    lifecycleScope.launch {
                                                         Snackbar.make(view.verifyBTN, "Thank You For Joining Us ${theVM.theName!!} ", Snackbar.LENGTH_SHORT).setBackgroundTint(requireContext().getColor(
-                                                            R.color.purple_200))
-                                                            .show()
+                                                                R.color.purple_200))
+                                                                .show()
                                                         delay(500)
                                                         findNavController().navigate(LogInCstDirections.actionLogInCstToHome2())
                                                     }
@@ -108,14 +105,12 @@ private val theVM:LogInCstViewModel by viewModels()
 
                                 })
                             }
-                        }
-                        else
-                        {
+                        } else {
                             Toast.makeText(requireContext(), "${it.exception!!.message}", Toast.LENGTH_SHORT).show()
 
                         }
                     }
-
+                } ?: Toast.makeText(requireContext(), "Please Wait Until U receive A message", Toast.LENGTH_SHORT).show()
             }
         }
         adminLogin.setOnClickListener {

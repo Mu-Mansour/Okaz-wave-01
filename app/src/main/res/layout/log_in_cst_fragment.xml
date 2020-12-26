@@ -29,7 +29,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:hint="Your Good Name"
-        app:boxBackgroundColor="#EBB3F4"
+        app:boxBackgroundColor="@color/purple_200"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
@@ -51,7 +51,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:hint="Your Phone Numberl"
-        app:boxBackgroundColor="#EBB3F4"
+        app:boxBackgroundColor="@color/purple_200"
         app:layout_constraintEnd_toStartOf="@+id/sendTheMessage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputName">
@@ -73,7 +73,7 @@
         android:layout_marginRight="16dp"
         android:hint="Your Authorization Keyl"
         android:visibility="invisible"
-        app:boxBackgroundColor="#EBB3F4"
+        app:boxBackgroundColor="@color/purple_200"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar">
