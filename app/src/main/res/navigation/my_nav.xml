@@ -9,7 +9,26 @@
         android:id="@+id/home2"
         android:name="com.example.okaz.Ui.HomeFragment.Home"
         android:label="home_fragment"
-        tools:layout="@layout/home_fragment" />
+        tools:layout="@layout/home_fragment" >
+        <action
+            android:id="@+id/action_home2_to_productInfo"
+            app:destination="@id/productInfo"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/home2"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_home2_to_logInCst"
+            app:destination="@id/logInCst"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/home2"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_home2_to_acoountSettings"
+            app:destination="@id/acoountSettings"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/home2"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/splash"
         android:name="com.example.okaz.Ui.Splash.Splash"
@@ -17,7 +36,10 @@
         tools:layout="@layout/splash_fragment" >
         <action
             android:id="@+id/action_splash_to_home2"
-            app:destination="@id/home2" />
+            app:destination="@id/home2"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/splash"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/logInCst"
@@ -26,10 +48,22 @@
         tools:layout="@layout/log_in_cst_fragment" >
         <action
             android:id="@+id/action_logInCst_to_home2"
-            app:destination="@id/home2" />
+            app:destination="@id/home2"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/logInCst"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_logInCst_to_adminLogin2"
-            app:destination="@id/adminLogin2" />
+            app:destination="@id/adminLogin2"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/logInCst"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_logInCst_to_acoountSettings"
+            app:destination="@id/acoountSettings"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/logInCst"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/adminHome"
@@ -43,6 +77,33 @@
         tools:layout="@layout/admin_login_fragment" >
         <action
             android:id="@+id/action_adminLogin2_to_adminHome"
-            app:destination="@id/adminHome" />
+            app:destination="@id/adminHome"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/adminLogin2"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/acoountSettings"
+        android:name="com.example.okaz.Ui.Account.AcoountSettings"
+        android:label="acoount_settings_fragment"
+        tools:layout="@layout/acoount_settings_fragment" >
+        <action
+            android:id="@+id/action_acoountSettings_to_home2"
+            app:destination="@id/home2"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/acoountSettings"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/productInfo"
+        android:name="com.example.okaz.Ui.productFullInforToOrder.ProductInfo"
+        android:label="product_info_fragment"
+        tools:layout="@layout/product_info_fragment" >
+        <argument
+            android:name="productId"
+            app:argType="string" />
+        <argument
+            android:name="Category"
+            app:argType="string" />
     </fragment>
 </navigation>

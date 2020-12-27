@@ -4,19 +4,18 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.size.Scale
 import coil.transform.RoundedCornersTransformation
-import com.example.okaz.Logic.Pcategory
 import com.example.okaz.Logic.Product
 import com.example.okaz.R
-import kotlinx.android.synthetic.main.category_rv_layout.view.*
+import com.example.okaz.Ui.HomeFragment.HomeDirections
 import kotlinx.android.synthetic.main.product_rv_layout.view.*
 
 
-class   ProductAdapter: RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+class   ProductAdapterForHome: RecyclerView.Adapter<ProductAdapterForHome.ProductViewHolder>() {
 
      var products:ArrayList<Product> = ArrayList()
 
@@ -32,6 +31,14 @@ class   ProductAdapter: RecyclerView.Adapter<ProductAdapter.ProductViewHolder>()
         var theProductchanges=theView.theObjectDetails
         @SuppressLint("SetTextI18n")
         var theProductDetails=theView.details
+        init {
+
+                theView.setOnClickListener {
+                    itemView.findNavController().navigate(HomeDirections.actionHome2ToProductInfo(products[adapterPosition].id!!,"Hot"))
+                }
+
+
+        }
 
     }
 

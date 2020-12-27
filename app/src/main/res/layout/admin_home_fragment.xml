@@ -201,4 +201,17 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="205dp" />
 
+    <ImageView
+        android:id="@+id/swipimage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:contentDescription="TODO"
+        app:srcCompat="@drawable/ic_baseline_swap_horiz_24"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/swipeableTV"
+        app:layout_constraintStart_toEndOf="@+id/swipeableTV"
+        app:layout_constraintTop_toTopOf="@+id/swipeableTV" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

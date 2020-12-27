@@ -93,7 +93,7 @@ private val theVM:LogInCstViewModel by viewModels()
                                                                 R.color.purple_200))
                                                                 .show()
                                                         delay(500)
-                                                        findNavController().navigate(LogInCstDirections.actionLogInCstToHome2())
+                                                        findNavController().navigate(LogInCstDirections.actionLogInCstToAcoountSettings())
                                                     }
                                                 }
                                             }

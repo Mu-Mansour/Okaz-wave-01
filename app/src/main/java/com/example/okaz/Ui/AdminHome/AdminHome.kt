@@ -18,7 +18,8 @@ import coil.size.Scale
 import coil.transform.RoundedCornersTransformation
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
-import com.example.okaz.Adapters.ProductAdapter
+import com.example.okaz.Adapters.ProductAdapterForAdminHome
+import com.example.okaz.Adapters.ProductAdapterForHome
 import com.example.okaz.R
 import com.theartofdev.edmodo.cropper.CropImage
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,7 +31,7 @@ import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class AdminHome : Fragment() {
-private val theAdapter=ProductAdapter()
+private val theAdapter= ProductAdapterForAdminHome()
 
     private  val viewModel: AdminHomeViewModel by viewModels()
 
@@ -134,7 +135,10 @@ private val theAdapter=ProductAdapter()
 
         viewModel.theHotProducts.observe(viewLifecycleOwner, Observer {
             theAdapter.submitTheList(it)
-            if (it.isNotEmpty()) view.swipeableTV.visibility=View.VISIBLE
+            if (it.isNotEmpty()) {
+                view.swipeableTV.visibility = View.VISIBLE
+                view.swipimage.visibility = View.VISIBLE
+            }
         })
         view.rvForAdminHotProducts.adapter=theAdapter
 

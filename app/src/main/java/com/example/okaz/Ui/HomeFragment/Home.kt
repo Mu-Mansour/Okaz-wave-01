@@ -9,14 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.size.Scale
 import coil.transform.CircleCropTransformation
-import coil.transform.RoundedCornersTransformation
 import com.example.okaz.Adapters.CategoryAdapter
-import com.example.okaz.Adapters.ProductAdapter
+import com.example.okaz.Adapters.ProductAdapterForHome
 import com.example.okaz.R
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class Home : Fragment() {
 private val categoryAdapter = CategoryAdapter()
-private val productAdapter = ProductAdapter()
+private val productAdapter = ProductAdapterForHome()
 val viewModel:HomeViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +58,18 @@ val viewModel:HomeViewModel by viewModels()
         theView.ProductRV.layoutManager= LinearLayoutManager(requireContext(),RecyclerView.HORIZONTAL,false)
         theView.catRV.adapter=categoryAdapter
         theView.ProductRV.adapter=productAdapter
+        theView.settings.setOnClickListener {
+            if (FirebaseAuth.getInstance().currentUser==null)
+            {
+               findNavController().navigate(HomeDirections.actionHome2ToLogInCst())
+            }
+            else
+            {
+                findNavController().navigate(HomeDirections.actionHome2ToAcoountSettings())
+
+            }
+
+        }
         return theView
     }
 
@@ -66,6 +78,7 @@ val viewModel:HomeViewModel by viewModels()
         viewModel.theHotProductsForCsts.observe(viewLifecycleOwner, Observer {
             productAdapter.submitTheList(it)
         })
+
     }
 
 }
