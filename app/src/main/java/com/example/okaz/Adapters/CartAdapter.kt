@@ -65,8 +65,8 @@ class CartAdapter: RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
-        holder.theDetailsForCart.text="Nmae: ${Products[position].name}\nCategory: ${Products[position].cat}\nPrice: ${Products[position].price}"
-        holder.theQuantityForCart.text= "${Products[position].quantity.toDouble() / Products[position].price.toDouble() }\n${Products[position].quantity} "
+        holder.theDetailsForCart.text="Namee: ${Products[position].name}\nCategory: ${Products[position].cat}\nPrice: ${Products[position].price}\nTotal Amount \nEGP: ${Products[position].quantity}"
+        holder.theQuantityForCart.text= "${Products[position].quantity.toDouble() / Products[position].price.toDouble() }"
         holder.theImageFromCart.load(Products[position].image){
             scale(Scale.FILL)
             transformations(RoundedCornersTransformation(5f))

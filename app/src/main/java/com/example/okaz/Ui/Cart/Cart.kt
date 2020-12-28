@@ -44,15 +44,15 @@ class Cart : Fragment() {
                               savedInstanceState: Bundle?): View? {
 
         val theView= inflater.inflate(R.layout.cart_fragment, container, false)
-        if (viewModel.theProductsForCart.value?.isEmpty() == true)
-        {
-            theView.cartProductsRV.visibility=View.GONE
-            theView.noOrders.visibility=View.VISIBLE
-        }
-        else
-        {
+
+        Utility.cartPrice.value?.let {
             theView.cartProductsRV.visibility=View.VISIBLE
             theView.noOrders.visibility=View.GONE
+            theView.priceTVForCart.visibility=View.VISIBLE
+        } ?: run {
+            theView.cartProductsRV.visibility = View.GONE
+            theView.priceTVForCart.visibility = View.GONE
+            theView.noOrders.visibility = View.VISIBLE
         }
 
         theView.goToHomeFromCart.setOnClickListener {
@@ -78,6 +78,7 @@ class Cart : Fragment() {
             {
                 view   .cartProductsRV.visibility=View.GONE
                 view.noOrders.visibility=View.VISIBLE
+                Utility.theOrder.clear()
             }
         })
         ItemTouchHelper(theSwipper).attachToRecyclerView(view.cartProductsRV)
@@ -90,7 +91,7 @@ class Cart : Fragment() {
             viewHolder: RecyclerView.ViewHolder,
             target: RecyclerView.ViewHolder
         ): Boolean {
-            TODO("Not yet implemented")
+return false
         }
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {

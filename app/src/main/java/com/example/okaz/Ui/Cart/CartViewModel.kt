@@ -22,7 +22,6 @@ class CartViewModel @ViewModelInject constructor(private val theAppRepoForAll: R
             }
 
             theProductsForCart.value=theListToBeAdded
-            Utility.theOrder.clear()
     }
 
 }
