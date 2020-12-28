@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import coil.size.Scale
 import coil.transform.RoundedCornersTransformation
 import com.example.okaz.Logic.Product
+import com.example.okaz.Logic.Utility
 import com.example.okaz.R
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -107,6 +109,20 @@ val viewModel:ProductInfoViewModel by viewModels()
             {
                 viewModel.theQuantity--
                 theView. quantityFromProducts.text=viewModel.theQuantity.toString()
+            }
+
+        }
+        theView.addToCartFromProduct.setOnClickListener {
+            if (viewModel.theQuantity> 0)
+            {
+                Utility.theOrder[viewModel.theProduct!!] = (viewModel.theQuantity * viewModel.theProduct!!.Price!!.toDouble()).toString()
+                Toast.makeText(requireContext(), "${viewModel.theProduct!!.Name!!} with Quantity ${ viewModel.theQuantity} Added To Tour Cart ", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(ProductInfoDirections.actionProductInfoToHome2())
+            }
+            else
+            {
+                Toast.makeText(requireContext(), "Please Define a Quantity ", Toast.LENGTH_SHORT).show()
+
             }
 
         }

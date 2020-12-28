@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/adminHome">
+    app:startDestination="@id/splash">
 
     <fragment
         android:id="@+id/home2"
@@ -25,6 +25,12 @@
         <action
             android:id="@+id/action_home2_to_acoountSettings"
             app:destination="@id/acoountSettings"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/home2"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_home2_to_cart"
+            app:destination="@id/cart"
             app:launchSingleTop="true"
             app:popUpTo="@id/home2"
             app:popUpToInclusive="true" />
@@ -105,5 +111,23 @@
         <argument
             android:name="Category"
             app:argType="string" />
+        <action
+            android:id="@+id/action_productInfo_to_home2"
+            app:destination="@id/home2"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/productInfo"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/cart"
+        android:name="com.example.okaz.Ui.Cart.Cart"
+        android:label="cart_fragment"
+        tools:layout="@layout/cart_fragment" >
+        <action
+            android:id="@+id/action_cart_to_home2"
+            app:destination="@id/home2"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/cart"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

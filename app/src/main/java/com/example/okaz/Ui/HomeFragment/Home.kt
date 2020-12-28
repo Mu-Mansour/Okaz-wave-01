@@ -78,6 +78,9 @@ val viewModel:HomeViewModel by viewModels()
         viewModel.theHotProductsForCsts.observe(viewLifecycleOwner, Observer {
             productAdapter.submitTheList(it)
         })
+        view.goToYourCart.setOnClickListener {
+            findNavController().navigate(HomeDirections.actionHome2ToCart())
+        }
 
     }
 

@@ -4,16 +4,13 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.size.Scale
 import coil.transform.RoundedCornersTransformation
 import com.example.okaz.Logic.Product
 import com.example.okaz.R
-import com.example.okaz.Ui.HomeFragment.HomeDirections
 import kotlinx.android.synthetic.main.product_for_adminhome.view.*
-import kotlinx.android.synthetic.main.product_rv_layout.view.*
 
 
 class   ProductAdapterForAdminHome: RecyclerView.Adapter<ProductAdapterForAdminHome.ProducforAdmintViewHolder>() {
