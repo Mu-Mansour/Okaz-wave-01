@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Okaz</string>
+    <string name="enter_your_adress_in_details">Enter Your Address in Details ..State /City /Street</string>
 </resources>

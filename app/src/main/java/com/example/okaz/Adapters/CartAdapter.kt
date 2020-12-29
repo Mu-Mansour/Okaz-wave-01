@@ -23,7 +23,14 @@ class CartAdapter: RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
         Products=pros as ArrayList<CartProduct>
         notifyDataSetChanged()
     }
-
+    fun makeTheOrder()
+    {
+        Utility.theFinalOrder= hashMapOf()
+        for (i in Products)
+        {
+            Utility.theFinalOrder?.set(i.id, "${(i.quantity.toDouble() / i.price.toDouble()).toInt()}")
+        }
+    }
     inner class CartViewHolder(theView:View):RecyclerView.ViewHolder (theView)
     {
         var theDetailsForCart = theView.detailsOfProductForCart

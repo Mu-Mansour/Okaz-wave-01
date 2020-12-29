@@ -78,14 +78,17 @@ class AdminHomeViewModel @ViewModelInject constructor(private val theAppRepoForA
                         theProductMap["image"] = theLinkCreated.toString()
                         theProductMap["id"] = theProductId
                         FirebaseDatabase.getInstance().reference.child("HotProducts").child(theProductId).updateChildren(theProductMap!!).addOnSuccessListener {
-                            viewModelScope.launch(Dispatchers.Main ){
-                                dialogue.dismiss()
-                                theUriForImage=null
-                                theProductNmae=null
-                                theProductPrice=null
-                                theProductDescription=null
-                                theProductMap.clear()
-
+                            viewModelScope.launch(Dispatchers.IO ){
+                                FirebaseDatabase.getInstance().reference.child("Products").child(theCategory!!).child(theProductId).updateChildren(theProductMap!!).addOnSuccessListener {
+                                    viewModelScope.launch(Dispatchers.Main) {
+                                        dialogue.dismiss()
+                                        theUriForImage=null
+                                        theProductNmae=null
+                                        theProductPrice=null
+                                        theProductDescription=null
+                                        theProductMap.clear()
+                                    }
+                                }
                             }
 
                         }

@@ -2,6 +2,7 @@ package com.example.okaz.Ui.Cart
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,14 +16,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.example.okaz.Adapters.CartAdapter
 import com.example.okaz.Logic.Utility
 import com.example.okaz.R
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.admin_home_fragment.view.*
 import kotlinx.android.synthetic.main.cart_fragment.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class Cart : Fragment() {
@@ -52,6 +57,10 @@ class Cart : Fragment() {
         } ?: run {
             theView.cartProductsRV.visibility = View.GONE
             theView.priceTVForCart.visibility = View.GONE
+            theView.recieverFromCart.visibility = View.GONE
+            theView.adressCart.visibility = View.GONE
+            theView.dphoneFromCart.visibility = View.GONE
+            theView.Confirmation.visibility = View.GONE
             theView.noOrders.visibility = View.VISIBLE
         }
 
@@ -76,11 +85,51 @@ class Cart : Fragment() {
             view.priceTVForCart.text="Price $it EGP "
             if (it==0.0)
             {
-                view   .cartProductsRV.visibility=View.GONE
-                view.noOrders.visibility=View.VISIBLE
+                view.cartProductsRV.visibility = View.GONE
+                view.priceTVForCart.visibility = View.GONE
+                view.recieverFromCart.visibility = View.GONE
+                view.adressCart.visibility = View.GONE
+                view.dphoneFromCart.visibility = View.GONE
+                view.Confirmation.visibility = View.GONE
+                view.noOrders.visibility = View.VISIBLE
                 Utility.theOrder.clear()
             }
         })
+        view.GoToLogInImage.setOnClickListener {
+            findNavController().navigate(CartDirections.actionCartToLogInCst())
+        }
+        view.Confirmation.setOnClickListener {
+            if (view.recieverFromCart.editText!!.text.isEmpty() ||view.adressCart.editText!!.text.isEmpty() ||view.dphoneFromCart.editText!!.text.isEmpty())
+            {
+                Toast.makeText(requireContext(), "Enter Your Shipment Details", Toast.LENGTH_SHORT).show()
+            }
+            else if (FirebaseAuth.getInstance().currentUser==null)
+            {
+                Toast.makeText(requireContext(), "Please Log In First", Toast.LENGTH_SHORT).show()
+                view.GoToLogInImage.visibility=View.VISIBLE
+                view.gotoLogin.visibility=View.VISIBLE
+                YoYo.with(Techniques.Shake).playOn(view.GoToLogInImage)
+
+            }
+            else
+            {
+                val theProgress = ProgressDialog(requireContext()).apply {
+                    setMessage("Confirming Order")
+                    setCancelable(false)
+                    setCanceledOnTouchOutside(false)
+                    show()
+                }
+                lifecycleScope.launch(Dispatchers.IO) {
+                    viewModel.PhoneToContact = view.dphoneFromCart.editText!!.text.toString()
+                    viewModel.theAdress = view.adressCart.editText!!.text.toString()
+                    viewModel.theReciver = view.recieverFromCart.editText!!.text.toString()
+                    theAdapterForCart.makeTheOrder()
+                    viewModel.updateToDataBaseOrder(theProgress)
+
+                }
+            }
+
+        }
         ItemTouchHelper(theSwipper).attachToRecyclerView(view.cartProductsRV)
     }
 

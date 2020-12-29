@@ -129,5 +129,11 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/cart"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_cart_to_logInCst"
+            app:destination="@id/logInCst"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/cart"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
