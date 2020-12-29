@@ -75,7 +75,14 @@
         android:id="@+id/adminHome"
         android:name="com.example.okaz.Ui.AdminHome.AdminHome"
         android:label="admin_home_fragment"
-        tools:layout="@layout/admin_home_fragment" />
+        tools:layout="@layout/admin_home_fragment" >
+        <action
+            android:id="@+id/action_adminHome_to_pendingOrder"
+            app:destination="@id/pendingOrder"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/adminHome"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/adminLogin2"
         android:name="com.example.okaz.Ui.AdminLogin.AdminLogin"
@@ -135,5 +142,14 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/cart"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/pendingOrder"
+        android:name="com.example.okaz.Ui.PendingOrderForAdmin.PendingOrder"
+        android:label="pending_order_fragment"
+        tools:layout="@layout/pending_order_fragment" >
+        <argument
+            android:name="OrderId"
+            app:argType="string" />
     </fragment>
 </navigation>

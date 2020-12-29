@@ -26,6 +26,7 @@ class AdminHomeViewModel @ViewModelInject constructor(private val theAppRepoForA
     var theProductDescription:String?=null
 
     val theHotProducts:MutableLiveData<List<Product>> = MutableLiveData()
+    val thePendingOrders:MutableLiveData<List<String>> = MutableLiveData()
     fun mkaeTheProductMapAndUploadIt (dialogue:ProgressDialog): Deferred<StorageTask<UploadTask.TaskSnapshot>> {
 
         val theProductId=FirebaseDatabase.getInstance().reference.push().key!!
@@ -113,6 +114,26 @@ class AdminHomeViewModel @ViewModelInject constructor(private val theAppRepoForA
 
                     }
                     theHotProducts.value=productList
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
+    fun getThePendingOrders()
+    {
+        var OrdersList = mutableListOf<String>()
+        FirebaseDatabase.getInstance().reference.child("PendingOrders").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                OrdersList.clear()
+                if (snapshot.exists()) {
+                    for (NOTS in snapshot.children) {
+                        val theOrder = NOTS.key.toString()
+                        OrdersList.add(theOrder)
+
+
+                    }
+                    thePendingOrders.value=OrdersList
                 }
             }
             override fun onCancelled(error: DatabaseError) {

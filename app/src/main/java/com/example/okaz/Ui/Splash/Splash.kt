@@ -22,14 +22,14 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class Splash : Fragment() {
-    private val viewModel:SplashViewModel by viewModels()
+    private val viewModel: SplashViewModel by viewModels()
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
 
-        val theView=inflater.inflate(R.layout.splash_fragment,container,false)
+        val theView = inflater.inflate(R.layout.splash_fragment, container, false)
 
 
         return theView
@@ -37,25 +37,22 @@ class Splash : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+if (FirebaseAuth.getInstance().currentUser!= null)
+{
+    YoYo.with(Techniques.FadeIn).duration(2000).playOn(imageView)
         lifecycleScope.launch(Dispatchers.IO) {
-            viewModel.checkMyRefrence().addValueEventListener(object :ValueEventListener{
+            delay(2000)
+            viewModel.checkMyRefrence().addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists())
-                    {
-                        FirebaseAuth.getInstance().signOut()
+                    if (snapshot.exists()) {
                         viewModel.checkMyRefrence().removeEventListener(this)
-                        lifecycleScope.launch (Dispatchers.Main){
-                            YoYo.with(Techniques.FadeIn).duration(2000).playOn(imageView)
-                            delay(2000)
+                        FirebaseAuth.getInstance().signOut()
+                        lifecycleScope.launch(Dispatchers.Main) {
                             findNavController().navigate(SplashDirections.actionSplashToHome2())
                         }
-                    }
-                    else
-                    {
+                    } else {
                         viewModel.checkMyRefrence().removeEventListener(this)
-                        lifecycleScope.launch (Dispatchers.Main){
-                            YoYo.with(Techniques.FadeIn).duration(2000).playOn(imageView)
-                            delay(2000)
+                        lifecycleScope.launch(Dispatchers.Main) {
                             findNavController().navigate(SplashDirections.actionSplashToHome2())
                         }
                     }
@@ -69,6 +66,15 @@ class Splash : Fragment() {
 
         }
     }
+        else
+        {
+    lifecycleScope.launch(Dispatchers.Main) {
+        YoYo.with(Techniques.FadeIn).duration(2000).playOn(imageView)
+        delay(2000)
+        findNavController().navigate(SplashDirections.actionSplashToHome2())
+         }
+}
+}
 
 
 }

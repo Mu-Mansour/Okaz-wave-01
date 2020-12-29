@@ -35,28 +35,35 @@ class CartViewModel @ViewModelInject constructor(private val theAppRepoForAll: R
     fun updateToDataBaseOrder(dialouge:ProgressDialog)
     {
         val theOrderId=FirebaseDatabase.getInstance().reference.push().key.toString()
+
         Utility.theFinalOrder?.let {
-            it["id"]=theOrderId
-            it["theAddress"]=theAdress!!
-            it["PhoneToContact"]=PhoneToContact!!
-            it["theReceiver"]=theReciver!!
-            it["price"]=Utility.cartPrice.value.toString()
-            it["WhoOrdered"]=FirebaseAuth.getInstance().currentUser!!.uid
+            val ordersDetail:HashMap<String,Any> = hashMapOf()
+            ordersDetail["id"]=theOrderId
+            ordersDetail["theAddress"]=theAdress!!
+            ordersDetail["PhoneToContact"]=PhoneToContact!!
+            ordersDetail["theReceiver"]=theReciver!!
+            ordersDetail["Admin"]="notYet"
+            ordersDetail["price"]=Utility.cartPrice.value.toString()
+            ordersDetail["WhoOrdered"]=FirebaseAuth.getInstance().currentUser!!.uid
             FirebaseDatabase.getInstance().reference.child("PendingOrders")
-                   .child(theOrderId).updateChildren(it as Map<String, Any>).addOnSuccessListener {_->
+                   .child(theOrderId).updateChildren(ordersDetail).addOnSuccessListener {_->
+                    FirebaseDatabase.getInstance().reference.child("PendingOrders").child(theOrderId).child("Items").updateChildren(it as  Map<String, Any>).addOnSuccessListener {_->
                         it.clear()
+                        ordersDetail.clear()
                         Utility.theFinalOrder=null
-                      theAdress=null
-                       PhoneToContact=null
-                       theReciver=null
+                        theAdress=null
+                        PhoneToContact=null
+                        theReciver=null
                         Utility.theOrder.clear()
                         Utility.cartPrice.value=0.0
 
-                viewModelScope.launch(Dispatchers.Main) {
-                    dialouge.setMessage("Thank You For Trusting Us ")
-                    delay(3000)
-                    dialouge.dismiss()
-                }
+                        viewModelScope.launch(Dispatchers.Main) {
+                            dialouge.setMessage("Thank You For Trusting Us ")
+                            delay(3000)
+                            dialouge.dismiss()
+                        }
+                    }
+
             }
         }
 

@@ -18,8 +18,8 @@ import coil.size.Scale
 import coil.transform.RoundedCornersTransformation
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
+import com.example.okaz.Adapters.PendingOrdersAdapterForAdminHome
 import com.example.okaz.Adapters.ProductAdapterForAdminHome
-import com.example.okaz.Adapters.ProductAdapterForHome
 import com.example.okaz.R
 import com.theartofdev.edmodo.cropper.CropImage
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,13 +31,18 @@ import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class AdminHome : Fragment() {
-private val theAdapter= ProductAdapterForAdminHome()
+private val theProductAdapter= ProductAdapterForAdminHome()
+private val theOrdersAdapter= PendingOrdersAdapterForAdminHome()
 
     private  val viewModel: AdminHomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycleScope.launch(Dispatchers.IO) {viewModel.getTheHotProducts()  }
+        lifecycleScope.launch(Dispatchers.IO) {
+            viewModel.getTheHotProducts()
+            viewModel.getThePendingOrders()
+
+        }
     }
     @SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -103,7 +108,7 @@ private val theAdapter= ProductAdapterForAdminHome()
             {
                 Toast.makeText(requireContext(), "Check Your Entities", Toast.LENGTH_SHORT).show()
             }
-            else if (theAdapter.products.size>25)
+            else if (theProductAdapter.products.size>25)
             {
                 Toast.makeText(requireContext(), "Your Hot Product List Is full", Toast.LENGTH_SHORT).show()
             }
@@ -129,18 +134,31 @@ private val theAdapter= ProductAdapterForAdminHome()
         return theView
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
 
-        viewModel.theHotProducts.observe(viewLifecycleOwner, Observer {
-            theAdapter.submitTheList(it)
+        viewModel.theHotProducts.observe(viewLifecycleOwner, {
             if (it.isNotEmpty()) {
+                theProductAdapter.submitTheList(it)
                 view.swipeableTV.visibility = View.VISIBLE
                 view.swipimage.visibility = View.VISIBLE
             }
         })
-        view.rvForAdminHotProducts.adapter=theAdapter
+        viewModel.thePendingOrders.observe(viewLifecycleOwner, Observer {
+            if (it.isNotEmpty())
+            {
+                view.PendingOrdersCount.visibility=View.VISIBLE
+                view.PendingOrdersCount.text="Pending Orders Count is : ${it.size}"
+                theOrdersAdapter.submitTheList(it)
+
+                }
+
+
+        })
+        view.rvForAdminHotProducts.adapter=theProductAdapter
+        view.PendingOrdersRV.adapter=theOrdersAdapter
 
 
 
