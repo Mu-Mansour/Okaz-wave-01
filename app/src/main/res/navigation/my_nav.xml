@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/splash">
+    app:startDestination="@id/adminHome">
 
     <fragment
         android:id="@+id/home2"
@@ -151,5 +151,16 @@
         <argument
             android:name="OrderId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_pendingOrder_to_adminHome"
+            app:destination="@id/adminHome"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/pendingOrder"
+            app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/searchForProduct"
+        android:name="com.example.okaz.Ui.SearchForCst.SearchForProduct"
+        android:label="search_for_product_fragment"
+        tools:layout="@layout/search_for_product_fragment" />
 </navigation>

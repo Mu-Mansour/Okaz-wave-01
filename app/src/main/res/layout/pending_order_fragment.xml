@@ -12,28 +12,28 @@
         android:id="@+id/ordererImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adminOwner" />
+        app:layout_constraintTop_toBottomOf="@+id/toPerson" />
 
     <TextView
-        android:id="@+id/ordererDetails"
+        android:id="@+id/toPerson"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/rubik_medium"
         android:singleLine="false"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ordererImage" />
+        app:layout_constraintTop_toBottomOf="@+id/adminOwner" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/gohomeAdminFromPending"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -44,16 +44,15 @@
         app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24" />
 
     <TextView
-        android:id="@+id/reciever"
+        android:id="@+id/FromPerson"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/rubik_medium"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ordererDetails" />
+        app:layout_constraintStart_toStartOf="@+id/toPerson"
+        app:layout_constraintTop_toBottomOf="@+id/toPerson" />
 
     <TextView
         android:id="@+id/adminOwner"
@@ -61,10 +60,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/rubik_medium"
-        android:textColor="#FFFFFF"
+        android:textColor="#E11010"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+        app:layout_constraintStart_toStartOf="@+id/gohomeAdminFromPending"
+        app:layout_constraintTop_toBottomOf="@+id/gohomeAdminFromPending" />
 
     <Button
         android:id="@+id/button"
@@ -79,4 +78,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvForItemsPendingAdmin"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/cart_rv_layout"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FromPerson" />
 </androidx.constraintlayout.widget.ConstraintLayout>

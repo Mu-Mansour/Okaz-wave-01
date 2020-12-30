@@ -9,6 +9,7 @@ import coil.load
 import coil.size.Scale
 import coil.transform.RoundedCornersTransformation
 import com.example.okaz.Logic.CartProduct
+import com.example.okaz.Logic.OrderItem
 import com.example.okaz.Logic.Utility
 import com.example.okaz.R
 import kotlinx.android.synthetic.main.cart_rv_layout.view.*
@@ -28,7 +29,7 @@ class CartAdapter: RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
         Utility.theFinalOrder= hashMapOf()
         for (i in Products)
         {
-            Utility.theFinalOrder?.set(i.id, "${(i.quantity.toDouble() / i.price.toDouble()).toInt()}")
+            Utility.theFinalOrder?.set(i.id, OrderItem(i.cat, (i.quantity)))
         }
     }
     inner class CartViewHolder(theView:View):RecyclerView.ViewHolder (theView)
@@ -73,7 +74,7 @@ class CartAdapter: RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
         holder.theDetailsForCart.text="Namee: ${Products[position].name}\nCategory: ${Products[position].cat}\nPrice: ${Products[position].price}\nTotal Amount \nEGP: ${Products[position].quantity}"
-        holder.theQuantityForCart.text= "${Products[position].quantity.toDouble() / Products[position].price.toDouble() }"
+        holder.theQuantityForCart.text= "${(Products[position].quantity.toDouble() / Products[position].price.toDouble() ).toInt()}"
         holder.theImageFromCart.load(Products[position].image){
             scale(Scale.FILL)
             transformations(RoundedCornersTransformation(5f))
