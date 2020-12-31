@@ -6,6 +6,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.okaz.Logic.ItemForSearchTotall
 import com.example.okaz.Logic.Product
 import com.example.okaz.Repo.Repo
 import com.google.firebase.auth.FirebaseAuth
@@ -17,6 +18,8 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
 import kotlinx.coroutines.*
+import java.util.*
+import kotlin.collections.HashMap
 
 class AdminHomeViewModel @ViewModelInject constructor(private val theAppRepoForAll: Repo): ViewModel() {
     var theCategory:String?=null
@@ -46,7 +49,7 @@ class AdminHomeViewModel @ViewModelInject constructor(private val theAppRepoForA
                        FirebaseDatabase.getInstance().reference.child("Products").child(theCategory!!).child(theProductId).updateChildren(
                            theProductMap
                        ).addOnSuccessListener {
-                           FirebaseDatabase.getInstance().reference.child("SearchTree").child(theProductId).child("Name").setValue(theProductNmae!!).addOnSuccessListener {
+                           FirebaseDatabase.getInstance().reference.child("SearchTree").child(theProductId).setValue(ItemForSearchTotall(theProductId,theProductNmae!!,theCategory!!)).addOnSuccessListener {
                                    viewModelScope.launch(Dispatchers.Main ){
                                        dialogue.dismiss()
                                        theUriForImage=null
@@ -78,27 +81,31 @@ class AdminHomeViewModel @ViewModelInject constructor(private val theAppRepoForA
             imageFileRefrence.putFile(theUriForImage!!).addOnCompleteListener {
                 if (it.isSuccessful) {
                     imageFileRefrence.downloadUrl.addOnSuccessListener { theLinkCreated ->
-                        val  theProductMap=HashMap<String,Any>()
-                        theProductMap["Name"]=theProductNmae!!
-                        theProductMap["Price"]=theProductPrice!!.toString()
-                        theProductMap["Description"]=theProductDescription!!
-                        theProductMap["Category"]=theCategory!!
+                        val theProductMap = HashMap<String, Any>()
+                        theProductMap["Name"] = theProductNmae!!.toLowerCase(Locale.ROOT)
+                        theProductMap["Price"] = theProductPrice!!.toString().toLowerCase(Locale.ROOT)
+                        theProductMap["Description"] = theProductDescription!!.toLowerCase(Locale.ROOT)
+                        theProductMap["Category"] = theCategory!!
                         theProductMap["image"] = theLinkCreated.toString()
                         theProductMap["id"] = theProductId
                         FirebaseDatabase.getInstance().reference.child("HotProducts").child(theProductId).updateChildren(theProductMap!!).addOnSuccessListener {
-                            viewModelScope.launch(Dispatchers.IO ){
+                            viewModelScope.launch(Dispatchers.IO) {
                                 FirebaseDatabase.getInstance().reference.child("Products").child(theCategory!!).child(theProductId).updateChildren(theProductMap!!).addOnSuccessListener {
-                                    viewModelScope.launch(Dispatchers.Main) {
-                                        dialogue.dismiss()
-                                        theUriForImage=null
-                                        theProductNmae=null
-                                        theProductPrice=null
-                                        theProductDescription=null
-                                        theProductMap.clear()
+                                    FirebaseDatabase.getInstance().reference.child("SearchTree").child(theProductId).setValue(ItemForSearchTotall(theProductId, theProductNmae!!.toLowerCase(Locale.ROOT), theCategory!!)).addOnSuccessListener {
+
+
+                                        viewModelScope.launch(Dispatchers.Main) {
+                                            dialogue.dismiss()
+                                            theUriForImage = null
+                                            theProductNmae = null
+                                            theProductPrice = null
+                                            theProductDescription = null
+                                            theProductMap.clear()
+                                        }
                                     }
                                 }
-                            }
 
+                            }
                         }
                     }
                 }

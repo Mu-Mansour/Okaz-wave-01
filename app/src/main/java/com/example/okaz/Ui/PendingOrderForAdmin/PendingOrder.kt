@@ -76,7 +76,7 @@ class PendingOrder : Fragment() {
                 if (it.isNotEmpty()) {
                     it?.let {
                    //     viewModel.theProductsForRVAdapter.value= mutableListOf()
-                        viewModel.makeTheListForAdapter(it as HashMap<String, OrderItem>,requireContext())
+                        viewModel.makeTheListForAdapter(it as HashMap<String, OrderItem>)
                     }
 
                 }

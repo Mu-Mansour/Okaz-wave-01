@@ -42,47 +42,27 @@ class AdminLogin : Fragment() {
                 viewModel.theEmail = theView.EmialInputForAdmin.editText!!.text.toString()
                 viewModel.thePasswordl = theView.passwordForAdmin.editText!!.text.toString()
                 lifecycleScope.launch(Dispatchers.IO) {
-                    viewModel.logInForAdmin().addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            lifecycleScope.launch(Dispatchers.IO) {
-                                viewModel.refrenceToAdmins().addValueEventListener(object : ValueEventListener {
-                                    override fun onDataChange(snapshot: DataSnapshot) {
-                                        if (snapshot.exists()) {
-                                            lifecycleScope.launch(Dispatchers.Main) {
-                                                findNavController().navigate(AdminLoginDirections.actionAdminLogin2ToAdminHome())
-                                            }
-                                        } else {
-                                            lifecycleScope.launch(Dispatchers.IO) {
-                                                FirebaseAuth.getInstance().signOut()
-                                                withContext(Dispatchers.Main) {
-                                                    Toast.makeText(requireContext(), "Un Authorized Login", Toast.LENGTH_SHORT).show()
-                                                    requireActivity().finish()
-                                                }
-                                            }
-                                        }
+                    viewModel.logInForAdmin()
 
-                                    }
-
-                                    override fun onCancelled(error: DatabaseError) {
-                                    }
-
-                                })
-
-                            }
-                        } else {
-                            lifecycleScope.launch(Dispatchers.Main) {
-                                theView.adminProgressBar.visibility=View.GONE
-                                Toast.makeText(
-                                    requireContext(),
-                                    "${it.exception!!.message}",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        }
-                    }
                 }
             }
         }
+        viewModel.checking.observe(viewLifecycleOwner, {
+            it?.let {
+                if (it) {
+                    findNavController().navigate(AdminLoginDirections.actionAdminLogin2ToAdminHome())
+                }
+                else
+                {
+                    viewModel.theError?.let {it1->
+                        Toast.makeText(requireContext(), it1, Toast.LENGTH_SHORT).show()
+                    }
+                    theView.adminProgressBar.visibility=View.GONE
+                }
+            }
+
+        })
+
         return theView
     }
 

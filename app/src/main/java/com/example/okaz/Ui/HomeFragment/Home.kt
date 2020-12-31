@@ -54,6 +54,26 @@ val viewModel:HomeViewModel by viewModels()
             }
             theView.userName.text="Hello Guest"
         }
+        else
+        {
+            lifecycleScope.launch(Dispatchers.IO) {
+                viewModel.gettheUserDetails()
+            }
+            viewModel.theUser.observe(viewLifecycleOwner,{
+                it?.let {
+                    theView.profileImage.load(it.Image!!) {
+                        scale(Scale.FIT)
+                        transformations(CircleCropTransformation())
+                        crossfade(true)
+                        crossfade(300)
+
+                    }
+                    theView.userName.text="Hello ${it.Name!!}"
+                }
+            })
+
+        }
+
         theView.catRV.layoutManager= LinearLayoutManager(requireContext(),RecyclerView.HORIZONTAL,false)
         theView.ProductRV.layoutManager= LinearLayoutManager(requireContext(),RecyclerView.HORIZONTAL,false)
         theView.catRV.adapter=categoryAdapter
@@ -81,6 +101,10 @@ val viewModel:HomeViewModel by viewModels()
         view.goToYourCart.setOnClickListener {
             findNavController().navigate(HomeDirections.actionHome2ToCart())
         }
+        view.searchIcon.setOnClickListener {
+            findNavController().navigate(HomeDirections.actionHome2ToSearchForProduct())
+        }
+
 
     }
 

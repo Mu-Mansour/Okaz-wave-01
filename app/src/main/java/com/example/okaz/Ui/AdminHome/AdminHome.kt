@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import coil.load
 import coil.size.Scale
 import coil.transform.RoundedCornersTransformation
@@ -72,6 +73,9 @@ private val theOrdersAdapter= PendingOrdersAdapterForAdminHome()
         }
         theView.ProductImage.setOnClickListener {
             CropImage.activity().start(requireContext(), this)
+        }
+        theView.SearchfromAdminHome.setOnClickListener {
+            findNavController().navigate(AdminHomeDirections.actionAdminHomeToSearchForProduct())
         }
 
 

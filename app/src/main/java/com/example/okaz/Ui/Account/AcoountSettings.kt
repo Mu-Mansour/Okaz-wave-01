@@ -26,6 +26,7 @@ import kotlinx.android.synthetic.main.acoount_settings_fragment.view.*
 import kotlinx.android.synthetic.main.admin_home_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class AcoountSettings : Fragment() {
@@ -39,25 +40,19 @@ class AcoountSettings : Fragment() {
     ): View? {
        val theView = inflater.inflate(R.layout.acoount_settings_fragment, container, false)
         lifecycleScope.launch(Dispatchers.IO) {
-            viewModel.getTheUserImage().addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists())
-                    {
-                        lifecycleScope.launch(Dispatchers.Main) {
-                            theView.profileImagefromAccountSettings.load(snapshot.value.toString()) {
-                                scale(Scale.FIT)
-                                transformations(CircleCropTransformation())
-                                crossfade(true)
-                                crossfade(300)
-                            }
+            viewModel.getTheUserImage()
+            withContext(Dispatchers.Main){
+                viewModel.theUserImage.observe(viewLifecycleOwner,{
+                    it?.let {
+                        theView.profileImagefromAccountSettings.load(it) {
+                            scale(Scale.FIT)
+                            transformations(CircleCropTransformation())
+                            crossfade(true)
+                            crossfade(300)
                         }
                     }
+                })
                 }
-
-                override fun onCancelled(error: DatabaseError) {
-                }
-
-            })
         }
         theView.changeTheImage.setOnClickListener {
             CropImage.activity().start(requireContext(), this)

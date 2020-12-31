@@ -1,5 +1,6 @@
 package com.example.okaz.Ui.SearchForCst
 
+import android.text.Editable
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,28 +14,39 @@ import com.google.firebase.database.ValueEventListener
 class SearchForProductViewModel @ViewModelInject constructor(private val theAppRepoForAll: Repo): ViewModel() {
 
     val theListToBeAdded:MutableLiveData<MutableList<ItemForSearchTotall>> = MutableLiveData()
-    fun theSearchJob(word:String)
+    val theListedSearch:MutableList<ItemForSearchTotall> = mutableListOf()
+
+    fun theSearchJob(word: Editable?)
     {
-     val theRef=FirebaseDatabase.getInstance().reference.child("SearchTree")
-         .orderByChild("Name").startAt(word).endAt((word+"\uf8ff")).addValueEventListener(object: ValueEventListener{
-             override fun onDataChange(snapshot: DataSnapshot) {
-                 if (snapshot.exists())
-                 {
-                     theListToBeAdded.value= mutableListOf()
-                     for (i in snapshot.children)
-                     {
-                         val theItem = i.getValue(ItemForSearchTotall::class.java)
-                         theItem!!.id=i.key!!
-                         theListToBeAdded.value!!.add(theItem)
+        if (word.toString()!= "")
+        {
 
-                     }
-                 }
-             }
+        theListedSearch.clear()
+        val theRef=FirebaseDatabase.getInstance().reference.child("SearchTree")
+                .orderByChild("name").startAt(word.toString()).endAt((word.toString()+"\uf8ff")).addValueEventListener(object: ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists())
+                        {
+                            for (i in snapshot.children)
+                            {
+                                val theItem = i.getValue(ItemForSearchTotall::class.java)
+                                theItem?.let {
+                                    if (!theListedSearch.contains(theItem))
+                                   theListedSearch.add(theItem)
+                                  theListToBeAdded.value=theListedSearch
 
-             override fun onCancelled(error: DatabaseError) {
-             }
-         })
+                                }
 
 
+                            }
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                    }
+                })
+
+        }
     }
+
 }

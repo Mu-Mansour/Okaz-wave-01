@@ -130,7 +130,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/profileImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/profileImage"
-        app:srcCompat="@drawable/ic_integration" />
+        app:srcCompat="@drawable/ic_filter" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/catRV"
@@ -138,9 +138,9 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginEnd="16dp"
 
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
         app:layout_constraintEnd_toStartOf="@+id/imageView3"
         app:layout_constraintStart_toEndOf="@+id/profileImage"
@@ -182,9 +182,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:src="@drawable/ic_baseline_settings_24"
-        android:tint="@color/Lite"
+        app:srcCompat="@drawable/ic_baseline_settings_24"
         app:layout_constraintBottom_toBottomOf="@+id/textView7"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/Lite" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
