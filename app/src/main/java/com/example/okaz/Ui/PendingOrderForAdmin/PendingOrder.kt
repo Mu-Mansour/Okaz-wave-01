@@ -58,9 +58,6 @@ class PendingOrder : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val theView =inflater.inflate(R.layout.pending_order_fragment, container, false)
 
-
-
-
             viewModel.theOrder.observe(viewLifecycleOwner, {
                 if (it != null) {
                     theView.adminOwner.text = if (it.Admin!! == FirebaseAuth.getInstance().currentUser!!.uid || it.Admin == "notYet") " Owner :You" else "Owner : Another Admin "
@@ -75,7 +72,6 @@ class PendingOrder : Fragment() {
             viewModel.itemsInsideOrder.observe(viewLifecycleOwner, {
                 if (it.isNotEmpty()) {
                     it?.let {
-                   //     viewModel.theProductsForRVAdapter.value= mutableListOf()
                         viewModel.makeTheListForAdapter(it as HashMap<String, OrderItem>)
                     }
 
@@ -99,8 +95,6 @@ class PendingOrder : Fragment() {
 
         viewModel.whoOrdered.observe(viewLifecycleOwner,{
            it?.let {
-
-
                 view.ordererImage.load(it.Image!!) {
                     scale(Scale.FIT)
                     transformations(CircleCropTransformation())
@@ -108,8 +102,6 @@ class PendingOrder : Fragment() {
                     crossfade(300)
                 }
                 view.FromPerson.text = "Ordered By:\nName: ${it.Name}\nCredit: ${it.Credit}\nPhone: ${it.Phone}"
-
-
             }
 
         })
@@ -120,15 +112,8 @@ class PendingOrder : Fragment() {
                 {
                         theCartAdapter.submitTheProducts(it)
                         theProgress.dismiss()
-
                 }
             }
-
-
-
-           // Toast.makeText(requireContext(), "${it.size}", Toast.LENGTH_SHORT).show()
-
-
         })
 
 

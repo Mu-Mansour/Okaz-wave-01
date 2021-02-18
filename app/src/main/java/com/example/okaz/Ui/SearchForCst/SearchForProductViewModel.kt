@@ -11,7 +11,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class SearchForProductViewModel @ViewModelInject constructor(private val theAppRepoForAll: Repo): ViewModel() {
+class SearchForProductViewModel @ViewModelInject constructor(): ViewModel() {
 
     val theListToBeAdded:MutableLiveData<MutableList<ItemForSearchTotall>> = MutableLiveData()
     val theListedSearch:MutableList<ItemForSearchTotall> = mutableListOf()

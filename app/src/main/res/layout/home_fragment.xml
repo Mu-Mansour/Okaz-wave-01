@@ -23,8 +23,8 @@
         android:id="@+id/searchIcon"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginBottom="24dp"
         android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,27 +34,24 @@
 
     <TextView
         android:id="@+id/fashionCat"
-        android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:fontFamily="@font/rubik_medium"
         android:gravity="center"
         android:rotation="270"
+        android:singleLine="true"
         android:text="Fashion"
         android:textColor="#BB86FC"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/searchIcon"
+        app:layout_constraintEnd_toStartOf="@+id/categoryRV"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/beautyCat" />
 
     <TextView
         android:id="@+id/beautyCat"
-        android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:fontFamily="@font/rubik_medium"
         android:gravity="center"
         android:rotation="270"
@@ -62,30 +59,29 @@
         android:textColor="@color/purple_200"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/fashionCat"
-        app:layout_constraintStart_toStartOf="@+id/fashionCat"
+        app:layout_constraintEnd_toStartOf="@+id/categoryRV"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/electronicsCat" />
 
     <TextView
         android:id="@+id/electronicsCat"
-        android:layout_width="wrap_content"
-        android:layout_height="90dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:fontFamily="@font/rubik_medium"
         android:gravity="center"
         android:rotation="270"
-        android:text="Electronics"
+        android:text="Electro"
         android:textColor="@color/purple_200"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/beautyCat"
-        app:layout_constraintEnd_toEndOf="@+id/beautyCat"
-        app:layout_constraintStart_toStartOf="@+id/fashionCat"
+        app:layout_constraintEnd_toStartOf="@+id/HotProductRV"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/retailCat" />
 
     <TextView
         android:id="@+id/retailCat"
-        android:layout_width="wrap_content"
-        android:layout_height="80dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:fontFamily="@font/rubik_medium"
         android:gravity="center"
         android:rotation="270"
@@ -93,10 +89,9 @@
         android:textColor="@color/purple_200"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/electronicsCat"
-        app:layout_constraintEnd_toEndOf="@+id/beautyCat"
-        app:layout_constraintStart_toStartOf="@+id/fashionCat"
-        app:layout_constraintTop_toBottomOf="@+id/profileImage"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintEnd_toStartOf="@+id/HotProductRV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <TextView
         android:id="@+id/userName"
@@ -147,16 +142,13 @@
         app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/ProductRV"
+        android:id="@+id/HotProductRV"
         android:layout_width="0dp"
         android:layout_height="280dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/beautyCat"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/beautyCat"
+        app:layout_constraintStart_toEndOf="@+id/profileImage"
         app:layout_constraintTop_toBottomOf="@+id/textView7"
         tools:listitem="@layout/product_rv_layout" />
 
@@ -182,9 +174,20 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        app:srcCompat="@drawable/ic_baseline_settings_24"
         app:layout_constraintBottom_toBottomOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_baseline_settings_24"
         app:tint="@color/Lite" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categoryRV"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/goToYourCart"
+        app:layout_constraintEnd_toEndOf="@+id/HotProductRV"
+        app:layout_constraintStart_toStartOf="@+id/HotProductRV"
+        app:layout_constraintTop_toBottomOf="@+id/HotProductRV" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

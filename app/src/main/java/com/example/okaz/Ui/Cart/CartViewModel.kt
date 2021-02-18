@@ -14,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class CartViewModel @ViewModelInject constructor(private val theAppRepoForAll: Repo): ViewModel() {
+class CartViewModel @ViewModelInject constructor(): ViewModel() {
     val theProductsForCart:MutableLiveData<List<CartProduct>> = MutableLiveData()
     var theAdress:String?=null
     var PhoneToContact:String?=null

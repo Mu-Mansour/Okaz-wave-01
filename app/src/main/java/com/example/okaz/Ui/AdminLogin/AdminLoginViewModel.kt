@@ -13,15 +13,14 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AdminLoginViewModel@ViewModelInject constructor(private val theAppRepoForAll: Repo): ViewModel() {
+class AdminLoginViewModel@ViewModelInject constructor(): ViewModel() {
 
     var theEmail:String?=null
     var thePasswordl:String?=null
     val checking:MutableLiveData<Boolean> = MutableLiveData()
     var theError:String?=null
     var theResult=false
-
-   fun logInForAdmin()=theAppRepoForAll.logInForAdmin(theEmail!!,thePasswordl!!).addOnSuccessListener {
+   fun logInForAdmin()=FirebaseAuth.getInstance().signInWithEmailAndPassword(theEmail!!,thePasswordl!!).addOnSuccessListener {
            FirebaseDatabase.getInstance().reference.child("Admins")
                    .child(FirebaseAuth.getInstance().currentUser!!.uid).addValueEventListener(object:ValueEventListener{
                        override fun onDataChange(snapshot: DataSnapshot) {
@@ -50,5 +49,4 @@ class AdminLoginViewModel@ViewModelInject constructor(private val theAppRepoForA
 
    }
 
-   // fun refrenceToAdmins()=FirebaseDatabase.getInstance().reference.child("Admins").child(FirebaseAuth.getInstance().currentUser!!.uid)
 }

@@ -15,8 +15,9 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class HomeViewModel@ViewModelInject constructor(private val theAppRepoForAll: Repo): ViewModel() {
+class HomeViewModel@ViewModelInject constructor(): ViewModel() {
      val theHotProductsForCsts: MutableLiveData<List<Product>> = MutableLiveData()
+     val theCategoryProductsForCsts: MutableLiveData<List<Product>> = MutableLiveData()
     val theUser:MutableLiveData<User> = MutableLiveData()
 
 
@@ -46,13 +47,36 @@ class HomeViewModel@ViewModelInject constructor(private val theAppRepoForAll: Re
             override fun onDataChange(snapshot: DataSnapshot) {
                 productList.clear()
                 if (snapshot.exists()) {
-                    for (NOTS in snapshot.children) {
-                        val theProduct = NOTS.getValue(Product::class.java)
+                    for (product in snapshot.children) {
+                        val theProduct = product.getValue(Product::class.java)
                         productList.add(theProduct!!)
 
 
                     }
                     theHotProductsForCsts.value=productList
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
+    fun getTheCategoryProducts(type:String)
+    {
+        var productList = mutableListOf<Product>()
+        FirebaseDatabase.getInstance().reference.child("Products").child(type).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                productList.clear()
+                if (snapshot.exists()) {
+                    for (product in snapshot.children) {
+                        val theProduct = product.getValue(Product::class.java)
+                        productList.add(theProduct!!)
+
+
+                    }
+                    viewModelScope.launch(Dispatchers.Main) {
+                        theCategoryProductsForCsts.value=productList
+                    }
+
                 }
             }
             override fun onCancelled(error: DatabaseError) {

@@ -14,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ProductInfoViewModel @ViewModelInject constructor(private val theAppRepoForAll: Repo): ViewModel() {
+class ProductInfoViewModel @ViewModelInject constructor(): ViewModel() {
     val theProductLiveObject:MutableLiveData<Product> = MutableLiveData()
     var theNewName:String?=null
     var theNewPrice:String?=null

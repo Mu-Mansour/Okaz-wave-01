@@ -8,9 +8,4 @@ import javax.inject.Singleton
 class Repo @Inject constructor () {
 
 
-    //admin login
-    fun logInForAdmin(emai:String,pass:String)= FirebaseAuth.getInstance().signInWithEmailAndPassword(emai, pass)
-
-    // cst login
-
 }

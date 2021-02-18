@@ -27,11 +27,8 @@ val theSearchAdapter=SearchAdapter()
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 theSearchAdapter.items.clear()
                 theSearchAdapter.notifyDataSetChanged()
-
             }
-
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -52,7 +49,6 @@ val theSearchAdapter=SearchAdapter()
         viewModel.theListToBeAdded.observe(viewLifecycleOwner, {
             it?.let {
                 if (it.size > 0) {
-                  //  theSearchAdapter.items.clear()
                     theSearchAdapter.submitTheList(it)
                 }
             }

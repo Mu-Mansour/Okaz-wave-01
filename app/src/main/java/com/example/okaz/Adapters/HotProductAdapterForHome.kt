@@ -15,7 +15,7 @@ import com.example.okaz.Ui.HomeFragment.HomeDirections
 import kotlinx.android.synthetic.main.product_rv_layout.view.*
 
 
-class   ProductAdapterForHome: RecyclerView.Adapter<ProductAdapterForHome.ProductViewHolder>() {
+class   HotProductAdapterForHome: RecyclerView.Adapter<HotProductAdapterForHome.ProductViewHolder>() {
 
      var products:ArrayList<Product> = ArrayList()
 
@@ -26,7 +26,7 @@ class   ProductAdapterForHome: RecyclerView.Adapter<ProductAdapterForHome.Produc
     }
     inner class ProductViewHolder(theView:View):RecyclerView.ViewHolder (theView)
     {
-        var theProductImage=theView.productimage
+        var theProductImage=theView.productimagecategory
         var theProductName=theView.productNmae
         var theProductchanges=theView.theObjectDetails
         @SuppressLint("SetTextI18n")

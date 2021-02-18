@@ -80,56 +80,77 @@ private val theOrdersAdapter= PendingOrdersAdapterForAdminHome()
 
 
         theView.addToSelectedCatAdmin.setOnClickListener {
-            if (theView.theProductDescAdmin.text.isEmpty() || theView.theproductPrice.text.isEmpty() || theView.theproductNmaeInput.text.isEmpty() || viewModel.theUriForImage==null ||viewModel.theCategory==null)
-            {
+            if (theView.theProductDescAdmin.text.isEmpty() || theView.theproductPrice.text.isEmpty() || theView.theproductNmaeInput.text.isEmpty() || viewModel.theUriForImage == null || viewModel.theCategory == null) {
                 Toast.makeText(requireContext(), "Check Your Entities", Toast.LENGTH_SHORT).show()
-            }
-            else
+            } else
             {
-                viewModel.theProductDescription=theView.theProductDescAdmin.text.toString()
-                viewModel.theProductNmae=theView.theproductNmaeInput.text.toString()
-                viewModel.theProductPrice=theView.theproductPrice.text.toString()
-                lifecycleScope.launch{
+                viewModel.theProductDescription = theView.theProductDescAdmin.text.toString()
+                viewModel.theProductNmae = theView.theproductNmaeInput.text.toString()
+                viewModel.theProductPrice = theView.theproductPrice.text.toString()
+                lifecycleScope.launch {
                     val theProgress = ProgressDialog(requireContext()).apply {
                         setMessage("Uploading..")
                         setCancelable(false)
                         setCanceledOnTouchOutside(false)
                         show()
                     }
-                    withContext(Dispatchers.IO){
-                        viewModel.mkaeTheProductMapAndUploadIt(theProgress).await()
+                    withContext(Dispatchers.IO) {
+                        viewModel.mkaeTheProductMapAndUploadIt().await()
+                        withContext(Dispatchers.Main){
+                            viewModel.jobIsDone.observe(viewLifecycleOwner, {
+                                it?.let {
+                                    if (it) {
+                                        theView.theproductNmaeInput.text.clear()
+                                        theView.theproductPrice.text.clear()
+                                        theView.theProductDescAdmin.text.clear()
+                                        theView.ProductImage.load(R.drawable.ic_baseline_camera_alt_24)
+                                        theProgress.dismiss()
+                                        Toast.makeText(requireContext(), "Added Successfully ", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            })
                         }
+
+
                     }
                 }
 
+            }
         }
-
         theView.addHotAdmin.setOnClickListener {
 
-            //check the AdapterFirst
-
-            if (theView.theProductDescAdmin.text.isEmpty() || theView.theproductPrice.text.isEmpty() || theView.theproductNmaeInput.text.isEmpty() || viewModel.theUriForImage==null ||viewModel.theCategory==null)
-            {
+            if (theView.theProductDescAdmin.text.isEmpty() || theView.theproductPrice.text.isEmpty() || theView.theproductNmaeInput.text.isEmpty() || viewModel.theUriForImage == null || viewModel.theCategory == null) {
                 Toast.makeText(requireContext(), "Check Your Entities", Toast.LENGTH_SHORT).show()
-            }
-            else if (theProductAdapter.products.size>25)
-            {
+            } else if (theProductAdapter.products.size > 25) {
                 Toast.makeText(requireContext(), "Your Hot Product List Is full", Toast.LENGTH_SHORT).show()
-            }
-            else
-            {
-                viewModel.theProductDescription=theView.theProductDescAdmin.text.toString()
-                viewModel.theProductNmae=theView.theproductNmaeInput.text.toString()
-                viewModel.theProductPrice=theView.theproductPrice.text.toString()
-                lifecycleScope.launch{
+            } else {
+                viewModel.theProductDescription = theView.theProductDescAdmin.text.toString()
+                viewModel.theProductNmae = theView.theproductNmaeInput.text.toString()
+                viewModel.theProductPrice = theView.theproductPrice.text.toString()
+                lifecycleScope.launch {
                     val theProgress = ProgressDialog(requireContext()).apply {
                         setMessage("Uploading..")
                         setCancelable(false)
                         setCanceledOnTouchOutside(false)
                         show()
                     }
-                    withContext(Dispatchers.IO){
-                        viewModel.mkaeTheHotProductMapAndUploadIt(theProgress).await()
+                    withContext(Dispatchers.IO) {
+                        viewModel.mkaeTheHotProductMapAndUploadIt().await()
+                        withContext(Dispatchers.Main){
+                            viewModel.jobIsDone.observe(viewLifecycleOwner, {
+                                it?.let {
+                                    if (it) {
+                                        theView.theproductNmaeInput.text.clear()
+                                        theView.theproductPrice.text.clear()
+                                        theView.theProductDescAdmin.text.clear()
+                                        theView.ProductImage.load(R.drawable.ic_baseline_camera_alt_24)
+                                        theProgress.dismiss()
+                                        Toast.makeText(requireContext(), "Added Successfully ", Toast.LENGTH_SHORT).show()
+
+                                    }
+                                }
+                            })
+                        }
                     }
                 }
             }

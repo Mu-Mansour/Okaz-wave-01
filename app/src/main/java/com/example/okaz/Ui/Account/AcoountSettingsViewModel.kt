@@ -15,7 +15,7 @@ import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AcoountSettingsViewModel @ViewModelInject constructor(private val theAppRepoForAll: Repo): ViewModel() {
+class AcoountSettingsViewModel @ViewModelInject constructor(): ViewModel() {
 
     val theUserImage:MutableLiveData<String> = MutableLiveData()
     fun getTheUserImage()=FirebaseDatabase.getInstance().reference.child("Users")

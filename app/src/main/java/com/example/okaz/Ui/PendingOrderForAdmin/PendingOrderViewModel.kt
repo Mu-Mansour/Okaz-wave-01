@@ -11,7 +11,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class PendingOrderViewModel @ViewModelInject constructor(private val theAppRepoForAll: Repo): ViewModel() {
+class PendingOrderViewModel @ViewModelInject constructor(): ViewModel() {
     val theOrder:MutableLiveData<PendingOrderForAdmin> = MutableLiveData()
     val whoOrdered:MutableLiveData<User> = MutableLiveData()
     val itemsInsideOrder:MutableLiveData<Map<String,OrderItem>> = MutableLiveData()
@@ -37,7 +37,6 @@ class PendingOrderViewModel @ViewModelInject constructor(private val theAppRepoF
 
                         val theItemForList: CartProduct = (CartProduct(theProductDetails!!.image!!, theProductDetails.Name!!, theProductDetails.Category!!, theProductDetails.Price!!, i.value.quantity!!, theProductDetails.id!!))
                         theitemdsForRv.add(theItemForList)
-                        //this is costy but we cant do anything else
                         theProductsForRVAdapter.value=theitemdsForRv
                     }
                 }

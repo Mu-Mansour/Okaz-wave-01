@@ -72,10 +72,9 @@ class AcoountSettings : Fragment() {
         if (requestCode== CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE &&resultCode== Activity.RESULT_OK)
         {
 
-            val result = CropImage.getActivityResult(data)
 
             lifecycleScope.launch(Dispatchers.IO) {
-                viewModel.storeAndUpdateImage(result.uri)
+                viewModel.storeAndUpdateImage( CropImage.getActivityResult(data).uri)
             }
 
         }

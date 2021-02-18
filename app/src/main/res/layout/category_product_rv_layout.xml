@@ -7,7 +7,7 @@
     android:padding="2dp">
 
     <ImageView
-        android:id="@+id/productimagecategory"
+        android:id="@+id/productimagecategoryRV"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="16dp"
@@ -15,29 +15,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/onFire"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        app:layout_constraintEnd_toEndOf="@+id/productimagecategory"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_fire" />
-
     <TextView
-        android:id="@+id/productNmae"
+        android:id="@+id/productNmaecategoryRVCat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/rubik_bold_italic"
-        android:text="Name"
         android:textColor="@color/purple_200"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/productimagecategory"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productimagecategory" />
+        app:layout_constraintEnd_toEndOf="@+id/productimagecategoryRV"
+        app:layout_constraintStart_toStartOf="@+id/productimagecategoryRV"
+        app:layout_constraintTop_toBottomOf="@+id/productimagecategoryRV" />
 
     <TextView
-        android:id="@+id/details"
+        android:id="@+id/detailscategoryRVCat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -46,31 +37,19 @@
         android:singleLine="false"
         android:textColor="@color/purple_200"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productNmae" />
+        app:layout_constraintStart_toStartOf="@+id/productimagecategoryRV"
+        app:layout_constraintTop_toBottomOf="@+id/productNmaecategoryRVCat" />
 
     <TextView
-        android:id="@+id/theObjectDetails"
+        android:id="@+id/theObjectDetailscategoryRVCat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:fontFamily="@font/rubik_medium"
-        android:text="object"
         android:textColor="@color/white"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/details"
-        app:layout_constraintEnd_toEndOf="@+id/productimagecategory"
-        app:layout_constraintTop_toTopOf="@+id/details" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="4dp"
-        android:text="AD"
-        app:layout_constraintStart_toStartOf="@+id/productimagecategory"
-        app:layout_constraintTop_toTopOf="@+id/productimagecategory" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/productimagecategoryRV"
+        app:layout_constraintTop_toTopOf="@+id/detailscategoryRVCat" />
 </androidx.constraintlayout.widget.ConstraintLayout>
