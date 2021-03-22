@@ -1,11 +1,11 @@
-# Okaz
+## Okaz
 
 An E-Commerce clone of Amazon Shopping Android app *for only training purpose*. 
 
-## Technologies:
+### Technologies:
 - Kotlin, Firebase(RealTime DataBase,Storage,Auth), dependency injection(Hilt), MVVM pattern, Navigation Component.
 
-## Features:
+### Features:
 - provides a Login for Admins/Customers.
 	
 * **Customer**: 
